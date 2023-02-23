@@ -11,11 +11,34 @@ datasource db {
 }
 
 model User {
-    id String @id @default(uuid())
+    id Int @id @default(autoincrement())
     username String @unique
 
     passwordHash String
     userAuthToken String @unique
 
     isAdmin Boolean @default(false)
+
+    summaries Summary[]
+}
+
+model Summary {
+    id Int @id @default(autoincrement())
+
+    user User @relation(fields: [userId], references: [id])
+    userId Int
+
+    book Book @relation(fields: [bookId], references: [id])
+    bookId Int
+
+    text String
+    isSubmitted Boolean @default(false)
+    submittedAt DateTime?
+}
+
+model Book {
+    id Int @id @default(autoincrement())
+    name String @unique
+
+    summaries Summary[]
 }

@@ -1,10 +1,15 @@
 <script lang="ts">
+    import type { PageData } from "./$types";
+
+    export let data: PageData;
 </script>
 
-<h2>BUCH Zusammenfassung</h2>
-<textarea />
-<button>Speichern</button>
-<button>Abgeben</button>
+<h2>{data.book} Zusammenfassung</h2>
+
+<form action="?/save" method="POST">
+    <textarea name="text" required>{data.text}</textarea>
+    <button type="submit">Speichern</button>
+</form>
 
 <style>
     textarea {
